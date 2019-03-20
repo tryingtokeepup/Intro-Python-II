@@ -79,7 +79,13 @@ while True:
     cmd = input(
         "Alright, so ... make a move. \n To go north, enter n. \n To go east, enter e. \n To go south, enter s. \n To go west, enter s. \n  If you need to quit, just enter q to quit out. \n ... Yah wuss. \n")
     if cmd == "n":
+
+        if current_room.n_to == None:
+            print(
+                'You looked to the north, but you saw only darkness. Try another direction.')
+
         current_room = current_room.n_to
     elif cmd == "q":
         print('Ahhh man, alright. See you in the next world.')
         break
+# quick commit
