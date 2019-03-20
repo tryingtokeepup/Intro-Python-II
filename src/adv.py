@@ -1,10 +1,11 @@
 from room import Room
-
-# Declare all the rooms
-
+from player import Player
+import textwrap
+# Declare all the rooms whoo
+# remember, you defined Room as first having a name, which for Outside would be "Outside Cave Entrance", and then there is a description.
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mountain beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -49,3 +50,16 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+# Let's begin the game loop!
+# welcome message
+
+print("Welcome to the Treasure Hunt, a game designed by tryingtokeepup. I hope you can, *snicker, ... keep up. Oh my I chottle myself unduly, yes.")
+
+# gamplay loop
+while True:
+    # First, let's ask the player what their name is, and then store that, along with the current_room, outside, inside a new instance of Player
+    player_name = input('Hello traveler, what is your name? : ')
+    player = Player(player_name, room['outside'])
+    print(
+        f'Gotcha! So, your name is {player.name}. You are currently {player.current_room.name}')
