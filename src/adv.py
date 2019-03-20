@@ -1,11 +1,14 @@
 from room import Room
 from player import Player
+from colorama import Fore, Back, Style
 import textwrap
+import os
+
 # Declare all the rooms whoo
 # remember, you defined Room as first having a name, which for Outside would be "Outside Cave Entrance", and then there is a description.
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mountain beckons"),
+                     "North of you, the cave mountain beckons."),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -34,6 +37,7 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
 #
 # Main
 #
@@ -53,13 +57,29 @@ room['treasure'].s_to = room['narrow']
 
 # Let's begin the game loop!
 # welcome message
+print(Fore.BLUE + '====================================\n' + Style.RESET_ALL)
+print(Fore.YELLOW + Back.BLACK + "Welcome to the Treasure Hunt, \n a game designed by tryingtokeepup. \nI hope you can, *snicker, ... keep up. Oh my I chottle myself unduly, yes.")
 
-print("Welcome to the Treasure Hunt, a game designed by tryingtokeepup. I hope you can, *snicker, ... keep up. Oh my I chottle myself unduly, yes.")
+print(Fore.BLUE + '====================================\n' + Style.RESET_ALL)
+
+player_name = input(Fore.YELLOW + Back.BLACK +
+                    'Hello traveler, what is your name? : ')
+# let's start everyone off at the outside room.
+current_room = room['outside']
+player = Player(player_name, current_room)
+print(
+    f'Gotcha! So, your name is {player.name}. You are currently {player.current_room.name}')
 
 # gamplay loop
 while True:
     # First, let's ask the player what their name is, and then store that, along with the current_room, outside, inside a new instance of Player
-    player_name = input('Hello traveler, what is your name? : ')
-    player = Player(player_name, room['outside'])
+    player = Player(player_name, current_room)
     print(
-        f'Gotcha! So, your name is {player.name}. You are currently {player.current_room.name}')
+        f'You examine the room you are in. {player.current_room.description}')
+    cmd = input(
+        "Alright, so ... make a move. \n To go north, enter n. \n To go east, enter e. \n To go south, enter s. \n To go west, enter s. \n  If you need to quit, just enter q to quit out. \n ... Yah wuss. \n")
+    if cmd == "n":
+        current_room = current_room.n_to
+    elif cmd == "q":
+        print('Ahhh man, alright. See you in the next world.')
+        break
