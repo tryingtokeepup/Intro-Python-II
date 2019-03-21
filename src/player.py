@@ -8,7 +8,10 @@ class Player:
     def __init__(self, name, current_room, items=None):
         self.name = name
         self.current_room = current_room
-        self.current_items = items
+        self.items = items
 
     def getItem(self, item):
-        self.current_items.append(item)
+        self.items.append(item)
+    def travel(self, direction):
+        if direction in ["n", "s", "e", "w"]:
+            next_room = self.current_room.get_room_in_direction(direction)

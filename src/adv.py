@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 from colorama import Fore, Back, Style
 import textwrap
 import os
@@ -37,6 +38,25 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# add some items
+
+rock = Item(
+    "Rock", "This is a rock. Pointy, rough, and can be a makeshift weapon in times of need.")
+cookie = Item(
+    "Cookie", "Cookies are awesome. Put one in your mount and chew. It's going to be great.")
+
+items = [rock, cookie]
+items_names = [item.name for item in items]
+
+
+item_to_find_name = "Rock"
+# should put this into the item.py class, will refactor
+for i in range(len(items)):
+    if items[i].name.lower() == item_to_find_name.lower():
+        item = items.pop(i)
+        break
+
+print(item.name)
 
 #
 # Main
@@ -57,6 +77,9 @@ room['treasure'].s_to = room['narrow']
 
 # Let's begin the game loop!
 # welcome message
+valid_directions = ['n', 's', 'e', 'w']
+
+
 print(Fore.BLUE + '====================================\n' + Style.RESET_ALL)
 print(Fore.YELLOW + Back.BLACK + "Welcome to the Treasure Hunt, \n a game designed by tryingtokeepup. \nI hope you can, *snicker, ... keep up. Oh my I chottle myself unduly, yes.")
 
@@ -66,26 +89,39 @@ player_name = input(Fore.YELLOW + Back.BLACK +
                     'Hello traveler, what is your name? : ')
 # let's start everyone off at the outside room.
 current_room = room['outside']
+# let's ask the player what their name is, and then store that, along with the current_room, outside, inside a new instance of Player
+
 player = Player(player_name, current_room)
 print(
     f'Gotcha! So, your name is {player.name}. You are currently {player.current_room.name}')
 
-# gamplay loop
+
 while True:
-    # First, let's ask the player what their name is, and then store that, along with the current_room, outside, inside a new instance of Player
-    player = Player(player_name, current_room)
-    print(
-        f'You examine the room you are in. {player.current_room.description}')
-    cmd = input(
-        "Alright, so ... make a move. \n To go north, enter n. \n To go east, enter e. \n To go south, enter s. \n To go west, enter s. \n  If you need to quit, just enter q to quit out. \n ... Yah wuss. \n")
-    if cmd == "n":
-
-        if current_room.n_to == None:
-            print(
-                'You looked to the north, but you saw only darkness. Try another direction.')
-
-        current_room = current_room.n_to
+    cmd = input("-->")
+    if cmd in valid_directions:
+        current_room = player.current_room
+        player.travel(cmd)
     elif cmd == "q":
         print('Ahhh man, alright. See you in the next world.')
         break
+    else:
+        print('Didn\'t catch that. Try again?')
+
+# gamplay loop
+# while True:
+#     player = Player(player_name, current_room)
+#     print(
+#         f'You examine the room you are in. {player.current_room.description}')
+#     cmd = input(
+#         "Alright, so ... make a move. \n To go north, enter n. \n To go east, enter e. \n To go south, enter s. \n To go west, enter s. \n  If you need to quit, just enter q to quit out. \n ... Yah wuss. \n")
+#     if cmd == "n":
+
+#         if current_room.n_to == None:
+#             print(
+#                 'You looked to the north, but you saw only darkness. Try another direction.')
+
+#         current_room = current_room.n_to
+#     elif cmd == "q":
+#         print('Ahhh man, alright. See you in the next world.')
+#         break
 # quick commit
