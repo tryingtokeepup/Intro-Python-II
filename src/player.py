@@ -10,8 +10,22 @@ class Player:
         self.current_room = current_room
         self.items = items
 
-    def getItem(self, item):
+    def get_item(self, item):
         self.items.append(item)
+
+    def drop_item(self, item):
+        # so we need to be able to have the user type in the item they want to drop
+        # and then traverse the array of items and drop it
+        for i in self.items:
+            if self.items[i] == item:
+                self.items.pop(i)
+
     def travel(self, direction):
-        if direction in ["n", "s", "e", "w"]:
-            next_room = self.current_room.get_room_in_direction(direction)
+
+        next_room = self.current_room.getRoomInDirection(direction)
+        if next_room is not None:
+            self.current_room = next_room
+            print(self.current_room)
+        else:
+            print(
+                "You are determined, but the wall does not yield. You cannot go that way.\n")
