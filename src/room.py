@@ -43,7 +43,8 @@ class Room:
         return ", ".join(exits)
 
     def transferItem(self, itemname, player):
-        for index, item in enumerate(self.items)
+        for index, item in enumerate(self.items):
+            pass
 
     def __repr__(self):
         returnString = f"----------------\n{self.name}\n-----------------\n        {self.description}\n"

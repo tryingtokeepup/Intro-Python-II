@@ -4,6 +4,7 @@ from item import Item
 from colorama import Fore, Back, Style
 import textwrap
 import os
+
 # Eileen's Birthday Adventure
 # Eileen needs to find all her pals and cool dudes and gamer ladies, and have an awesome birthday bash.
 # Overall goal is to reach the quarentine room, and free Nedim.
@@ -106,7 +107,7 @@ print(f"{player.current_room}")
 while True:
 
     cmd = input(
-        "Alright, so ... make a move. Input a cardinal direction please. \n")
+        "Alright, so ... make a move. Input a cardinal direction please. \n").lower()
 
     if cmd == "i":
         print("\n To go north, enter n. \n To go east, enter e.  To go south, enter s. \n To go west, enter s. \n  If you need to quit, just enter q to quit out. \n ... Yah wuss. \n")
